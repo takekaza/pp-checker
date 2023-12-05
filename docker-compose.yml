@@ -1,6 +1,7 @@
-version: "3.9"
+version: '3.9'
 services:
-  frontend:
+  popu-checker:
+    container_name: popu-checker
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,5 +10,5 @@ services:
       - /app/node_modules
     tty: true
     ports:
-      - "3000:3000"
-    command: yarn dev
+      - '3000:3000'
+    # command: npm run dev
