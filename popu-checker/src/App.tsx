@@ -3,8 +3,9 @@ import "./App.css";
 import axios from "axios";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import log from "console";
+import log, { count } from "console";
 import Select, { MultiValue } from "react-select";
+import { render } from "@testing-library/react";
 
 // 都道府県のデータ型定義
 type Prefecture = {
@@ -40,6 +41,43 @@ const App: React.FC = () => {
   // 選択された都道府県コードを格納するステート
   const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);
 
+  /*
+    【テスト用】
+  */
+  // const [value, setValue] = useState<string>("初期値");
+  // const onClick = () => {
+  //   setValue("stateを更新");
+  // };
+  // console.log("[Debug] レンダリング");
+
+  const [numcount, setNumCount] = useState<number>(0);
+  const addCount = () => {
+    setNumCount(numcount + 1);
+  };
+
+  useEffect(() => {
+    console.log("[Debug] useEffect: カウントが増えました");
+  }, [numcount]);
+
+  const [fruits, setFruits] = useState<string[]>(["りんご", ",みかん"]);
+  // 配列の最後にマスカットを追加してみる
+  const onClick = () => {
+    // この場合に直接stateに値をpushしても同じ値として検知される
+    /*　State
+    現在地と同じ値で更新を行った場合、Reactは子のレンダーや副作用を回避して処理を終了する =>「新しいstate」を入れることで際レンダリングが実行される
+    */
+    // fruits.push("マスカット");
+    // // 結果的には更新関数を使ってもレンダリングされない
+    // setFruits(fruits);
+    const copyFruits = [...fruits];
+    copyFruits.push(",マスカット");
+    // 既存のstateとは異なる値（新しい値）が入ってくるのでレンダリングがされる
+    setFruits(copyFruits);
+    console.log("[Debug] onClick: マスカットが増えました");
+  };
+
+  /*=========end=========*/
+
   // react-select用の選択肢を設定
   const selectOptions = prefectures.map((prefecture) => ({
     value: prefecture.prefCode,
@@ -51,7 +89,9 @@ const App: React.FC = () => {
     selectedOptions: MultiValue<OptionType> | null // null を許容する
   ) => {
     // selectedOptions が null の場合、すべての選択がクリアされた空配列に
-    setSelectedPrefectures(selectedOptions ? selectedOptions.map((option) => option.value) : []);
+    setSelectedPrefectures(
+      selectedOptions ? selectedOptions.map((option: { value: any }) => option.value) : []
+    );
   };
 
   // 都道府県を取得
@@ -68,7 +108,7 @@ const App: React.FC = () => {
       })
       .catch((err) => {
         // エラー時の処理
-        console.error("[Error] fetching prefectures: ", err);
+        console.error("[Error] 都道府県を取得できません: ", err);
       });
   }, []);
 
@@ -87,7 +127,7 @@ const App: React.FC = () => {
       };
     } catch (err) {
       // エラー時の処理
-      console.error("[Error] fetching population data: ", err);
+      console.error("[Error] 選択した都道府県のデータを取得できません: ", err);
       return null; // エラーが発生した場合はnullを返す
     }
   };
@@ -171,8 +211,8 @@ const App: React.FC = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M26.7407 26.7407L26.7407 0L38 11.2593V38H38H11.2592L-1.14441e-05 26.7407L26.7407 26.7407H26.7407Z"
               fill="black"
             />
@@ -201,6 +241,18 @@ const App: React.FC = () => {
           ) : (
             <HighchartsReact highcharts={Highcharts} options={chartOptions} />
           )}
+        </div>
+        <div className="test-contents">
+          {/* <p>{value}</p>
+          <button onClick={onClick}>stateを更新</button> */}
+          <br />
+          <p>{numcount}</p>
+          <button onClick={addCount}>クリック</button>
+          <br />
+          <p>{fruits}</p>
+          <button onClick={onClick}>マスカットを追加</button>
+          <br />
+          <br />
         </div>
       </div>
     </>
