@@ -2,11 +2,13 @@
 import React from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
+import Accessibility from "highcharts/modules/accessibility";
 import { PopulationDataset, Prefecture } from "../types/types"; // types.tsからインポート
 
+Accessibility(Highcharts);
 /*
   PopulationChartコンポーネントのpropsの型定義
-*/
+  */
 interface PopulationChartProps {
   populationDatasets: PopulationDataset[];
   prefectures: Prefecture[];
