@@ -5,10 +5,11 @@ import Highcharts from "highcharts";
 import Accessibility from "highcharts/modules/accessibility";
 import { PopulationDataset, Prefecture } from "../types/types"; // types.tsからインポート
 
+// アクセシビリティ追記
 Accessibility(Highcharts);
 /*
   PopulationChartコンポーネントのpropsの型定義
-  */
+*/
 interface PopulationChartProps {
   populationDatasets: PopulationDataset[];
   prefectures: Prefecture[];

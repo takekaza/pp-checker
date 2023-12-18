@@ -5,8 +5,6 @@ import PopulationChart from "./components/PopulationChart";
 import Header from "./components/Header";
 import { usePrefectures } from "./hooks/usePrefectures";
 import { usePopulation } from "./hooks/usePopulation";
-// import { Prefecture, PopulationDataset, OptionType } from "./types/types"; // カスタムフック生成により
-// import axios from "axios"; // カスタムフック生成により
 import { OptionType } from "./types/types";
 import Select, { MultiValue } from "react-select";
 
@@ -15,15 +13,12 @@ const App: React.FC = () => {
     ステート
   */
   // 各都道府県のデータを格納するステート
-  // const [prefectures, setPrefectures] = useState<Prefecture[]>([]); // カスタムフック生成により
   const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);
 
   // 選択された都道府県の人口データセットを格納するステート
-  // const [populationDatasets, setPopulationDatasets] = useState<PopulationDataset[]>([]);　// カスタムフック生成により
   const populationDatasets = usePopulation(selectedPrefectures);
 
   // 選択された都道府県コードを格納するステート
-  // const [selectedPrefectures, setSelectedPrefectures] = useState<number[]>([]);　// カスタムフック生成により
   const prefectures = usePrefectures();
 
   /*
