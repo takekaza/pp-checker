@@ -1,8 +1,28 @@
-import React from "react";
+import { FC, useState, useEffect } from "react";
+import "../App.css";
 
-const Header: React.FC = () => {
+const Header: FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  // console.log("[Debug]", window.scrollY);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollSize = 150; // スクロールの閾値
+      setIsScrolled(window.scrollY > scrollSize);
+    };
+
+    // スクロールイベントを登録
+    window.addEventListener("scroll", handleScroll);
+
+    // コンポーネントのアンマウント時にイベントリスナーをクリーンアップ
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // isScrolledがtrueのときに"scroll"クラスを適用
+  const headerClass = isScrolled ? "header scroll" : "header";
+
   return (
-    <header>
+    <header id="header" className={headerClass}>
       <div className="checker-ttl">
         <svg
           className="checker-ico"
@@ -19,7 +39,7 @@ const Header: React.FC = () => {
             fill="black"
           />
         </svg>
-        <h1>人口チェッカー</h1>
+        <h1>人間チェッカー</h1>
       </div>
     </header>
   );

@@ -21,3 +21,7 @@ export type PopulationDataset = {
   prefCode: number; // 都道府県コード
   data: PopulationData[]; // 人口データの配列
 };
+
+export type TextData = {
+  state: number;
+};

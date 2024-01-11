@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import Select, { MultiValue } from "react-select";
 import { OptionType } from "../types/types";
 
@@ -13,7 +13,7 @@ interface PrefectureSelectorProps {
 /*
   都道府県のリストを表示し、ユーザーが単一または複数の選択ができるようにするコンポーネント
 */
-const PrefectureSelector: React.FC<PrefectureSelectorProps> = ({ options, onChange }) => {
+const PrefectureSelector: FC<PrefectureSelectorProps> = ({ options, onChange }) => {
   return (
     <Select
       options={options}

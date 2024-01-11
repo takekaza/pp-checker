@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
   popu-checker:
     container_name: popu-checker
@@ -10,5 +10,5 @@ services:
       - /app/node_modules
     tty: true
     ports:
-      - '3000:3000'
-    # command: npm run dev
+      - "3000:3000"
+    command: npm start
