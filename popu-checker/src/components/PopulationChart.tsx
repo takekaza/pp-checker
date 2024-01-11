@@ -1,5 +1,5 @@
 // PopulationChart.tsx
-import React from "react";
+import { FC } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import Accessibility from "highcharts/modules/accessibility";
@@ -15,7 +15,7 @@ interface PopulationChartProps {
   prefectures: Prefecture[];
 }
 
-const PopulationChart: React.FC<PopulationChartProps> = ({ populationDatasets, prefectures }) => {
+const PopulationChart: FC<PopulationChartProps> = ({ populationDatasets, prefectures }) => {
   // Highchartsに渡すグラフ設定オプション
   const chartOptions: Highcharts.Options = {
     /*
